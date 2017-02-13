@@ -3,7 +3,8 @@ Text mining tweets related to 'BJP', a political party in India.
 
 ![Word-Cloud](word_cloud_2.jpeg)
 
-<!DOCTYPE html>
+### Interactive Word Cloud
+
 <html>
 <head>
 <meta charset="utf-8" />
