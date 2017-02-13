@@ -1,8 +1,10 @@
-library("tm")
-library("SnowballC")
-library("wordcloud")
-library("RColorBrewer")
+library(tm)
+library(SnowballC)
+library(wordcloud)
+library(d3wordcloud)
+library(RColorBrewer)
 library(stringr)
+library(highcharter)
 
 # I will use a samlple data of some tweets
 sample_data = read.csv("sample_tweet_data.csv", stringsAsFactors = F)
@@ -62,10 +64,21 @@ d <- data.frame(word = names(v),freq=v)
 head(d, 10)
 
 # Generate the word cloud
-jpeg("word_cloud.jpeg")
+jpeg("word_cloud_2.jpeg", units = "px", width = 1200, height = 1200)
 set.seed(1234)
-wordcloud(words = d$word, freq = d$freq, min.freq = 30,
-          max.words=200, random.order=FALSE, rot.per=0.1, 
-          colors=brewer.pal(12, "Paired"))
+wordcloud(words = d$word, freq = d$freq, scale = c(12, 2), min.freq = 50,
+          max.words=500, random.order=FALSE, rot.per=0.1, 
+          colors=brewer.pal(8, "Dark2"))
 
 dev.off()
+
+# Interactive Word Cloud
+d3wordcloud(words = d$word[1:500], freqs = d$freq[1:500],
+            rotate.min = 0,rotate.max = 0, spiral = 'rectangular',
+            tooltip = T)
+
+# Word Frequencies (20 Most frequent)
+hchart(d[1:20,], "column", hcaes(x = word, y = freq))
+
+
+
